@@ -21,7 +21,7 @@ module.exports = {
             patterns: [
                 {
                     from: path.resolve(__dirname, '../client/assets'),
-                    to: path.resolve(__dirname, '../../docs/client/assets')
+                    to: path.resolve(__dirname, '../../docs/assets')
                 }
             ]
         }),
@@ -34,6 +34,6 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, '../../docs/client'),
+        path: path.resolve(__dirname, '../../docs'),
     }
 };
