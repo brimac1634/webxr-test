@@ -1,12 +1,12 @@
 import * as THREE from 'three'
 import { DirectionalLight } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-// import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 // import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { BaseApp } from './base-app';
 import { BoxLineGeometry } from 'three/examples/jsm/geometries/BoxLineGeometry';
 import { VRButton } from 'three/examples/jsm/webxr/VRButton';
-import { Cube } from './components/cube';
+// import { Cube } from './components/cube';
 
 export class App extends BaseApp {
     private controls: OrbitControls;
@@ -21,11 +21,11 @@ export class App extends BaseApp {
         this.controls.target.set(0, 1.6, 0);
         this.controls.update();
 
-        this.initScene();
+        // this.initScene();
         this.addLighting();
         this.setupXR();
         
-        // this.loadGLTF();
+        this.loadGLTF();
         // this.loadFBX();
         // this.cube = new Cube();
         // this.scene.add(this.cube);
@@ -70,31 +70,33 @@ export class App extends BaseApp {
     }
 
 
-    // private animate() {
-    //     requestAnimationFrame(() => this.animate())
+    private animate() {
+        requestAnimationFrame(() => this.animate())
     
-    //     if (this.computer) {
-    //         this.computer.rotation.y += 0.01
-    //     }
+        if (this.computer) {
+            this.computer.rotation.y += 0.01
+        }
     
-    //     this.controls.update()
+        this.controls.update()
     
-    //     this.render()
-    // }
+        this.render()
+    }
 
-    // private loadGLTF() {
-    //     const self = this;
-    //     const loader = new GLTFLoader().setPath('../assets/');
-    //     loader.load('terminal.glb', (gltf: GLTF) => {
-    //         self.computer = gltf.scene;
-    //         self.scene.add(gltf.scene);
-    //         self.renderer.setAnimationLoop(self.render.bind(self));
-    //     }, (xhr: ProgressEvent<EventTarget>) => {
-    //         console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-    //     }, (error: ErrorEvent) => {
-    //         console.log(`Error: ${error.message}`);
-    //     })
-    // }
+    private loadGLTF() {
+        const self = this;
+        const loader = new GLTFLoader().setPath('../assets/');
+        loader.load('terminal.glb', (gltf: GLTF) => {
+            self.computer = gltf.scene;
+            self.computer.position.set(0, 1, -3);
+            self.computer.rotateY(-90 * (Math.PI/180))
+            self.scene.add(gltf.scene);
+            self.renderer.setAnimationLoop(self.render.bind(self));
+        }, (xhr: ProgressEvent<EventTarget>) => {
+            console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+        }, (error: ErrorEvent) => {
+            console.log(`Error: ${error.message}`);
+        })
+    }
 
     // private loadFBX() {
     //     const self = this;

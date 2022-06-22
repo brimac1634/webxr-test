@@ -6,6 +6,9 @@ export abstract class BaseApp {
     protected renderer: THREE.WebGLRenderer;
 
     constructor() {
+        const container = document.createElement( 'div' );
+		document.body.appendChild( container );
+
         this.scene = new THREE.Scene();
 
         this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -15,7 +18,7 @@ export abstract class BaseApp {
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(window.innerWidth, window.innerHeight)
         this.renderer.outputEncoding = THREE.sRGBEncoding;
-        document.body.appendChild(this.renderer.domElement);
+        container.appendChild( this.renderer.domElement );
 
         this.handleWindowResize();
     }
